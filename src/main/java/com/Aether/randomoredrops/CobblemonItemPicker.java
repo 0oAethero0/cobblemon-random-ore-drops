@@ -38,10 +38,14 @@ public class CobblemonItemPicker {
             }
 
 
+            if (Config.blacklist.contains(id)) {
+                return;
+            }
+
+
             NORMAL_ITEMS.add(item);
 
 
-            // Rare pool filter
             if (
                     id.contains("master")
                     || id.contains("ability")
@@ -58,13 +62,13 @@ public class CobblemonItemPicker {
 
 
         System.out.println(
-                "Normal Cobblemon items: "
+                "Normal Cobblemon items loaded: "
                 + NORMAL_ITEMS.size()
         );
 
 
         System.out.println(
-                "Rare Cobblemon items: "
+                "Rare Cobblemon items loaded: "
                 + RARE_ITEMS.size()
         );
 
