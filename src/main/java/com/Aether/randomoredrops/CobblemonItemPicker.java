@@ -9,7 +9,10 @@ import java.util.Random;
 
 public class CobblemonItemPicker {
 
-    private static final List<Item> COBBLEMON_ITEMS =
+    private static final List<Item> NORMAL_ITEMS =
+            new ArrayList<>();
+
+    private static final List<Item> RARE_ITEMS =
             new ArrayList<>();
 
     private static final Random RANDOM =
@@ -18,7 +21,8 @@ public class CobblemonItemPicker {
 
     public static void loadItems() {
 
-        COBBLEMON_ITEMS.clear();
+        NORMAL_ITEMS.clear();
+        RARE_ITEMS.clear();
 
 
         BuiltInRegistries.ITEM.forEach(item -> {
@@ -30,7 +34,11 @@ public class CobblemonItemPicker {
 
             if (id.startsWith("cobblemon:")) {
 
-                COBBLEMON_ITEMS.add(item);
+                NORMAL_ITEMS.add(item);
+
+                // placeholder rare pool
+                // will be customized later
+                RARE_ITEMS.add(item);
 
             }
 
@@ -38,25 +46,34 @@ public class CobblemonItemPicker {
 
 
         System.out.println(
-                "Loaded "
-                + COBBLEMON_ITEMS.size()
-                + " Cobblemon items!"
+                "Loaded Cobblemon items: "
+                + NORMAL_ITEMS.size()
         );
 
     }
 
 
-    public static Item randomItem() {
+    public static Item randomNormalItem() {
 
-        if (COBBLEMON_ITEMS.isEmpty()) {
-
+        if (NORMAL_ITEMS.isEmpty()) {
             return null;
-
         }
 
+        return NORMAL_ITEMS.get(
+                RANDOM.nextInt(NORMAL_ITEMS.size())
+        );
 
-        return COBBLEMON_ITEMS.get(
-                RANDOM.nextInt(COBBLEMON_ITEMS.size())
+    }
+
+
+    public static Item randomRareItem() {
+
+        if (RARE_ITEMS.isEmpty()) {
+            return null;
+        }
+
+        return RARE_ITEMS.get(
+                RANDOM.nextInt(RARE_ITEMS.size())
         );
 
     }
