@@ -6,6 +6,8 @@ import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JsonConfig {
 
@@ -42,7 +44,10 @@ public class JsonConfig {
 
 
             ConfigData data =
-                    GSON.fromJson(reader, ConfigData.class);
+                    GSON.fromJson(
+                            reader,
+                            ConfigData.class
+                    );
 
 
             reader.close();
@@ -51,11 +56,17 @@ public class JsonConfig {
             Config.enabled =
                     data.enabled;
 
+
             Config.normalOreChance =
                     data.normalOreChance;
 
+
             Config.rareOreChance =
                     data.rareOreChance;
+
+
+            Config.blacklist =
+                    data.blacklist;
 
 
         } catch (Exception e) {
@@ -98,9 +109,15 @@ public class JsonConfig {
 
         boolean enabled = true;
 
+
         double normalOreChance = 0.10;
 
+
         double rareOreChance = 0.50;
+
+
+        List<String> blacklist =
+                new ArrayList<>();
 
     }
 }
