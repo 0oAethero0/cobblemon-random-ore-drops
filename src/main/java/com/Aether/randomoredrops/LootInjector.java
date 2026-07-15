@@ -13,7 +13,6 @@ public class LootInjector {
 
         LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
 
-
             ResourceLocation id = key.location();
 
 
@@ -29,6 +28,18 @@ public class LootInjector {
             if (!blockName.contains("ore")) {
                 return;
             }
+
+
+            LootPools.OreTier tier =
+                    LootPools.getTier(blockName);
+
+
+            System.out.println(
+                    "Ore detected: "
+                    + blockName
+                    + " | Tier: "
+                    + tier
+            );
 
 
             Item randomItem =
