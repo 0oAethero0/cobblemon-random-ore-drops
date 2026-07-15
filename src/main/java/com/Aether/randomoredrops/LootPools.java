@@ -4,9 +4,11 @@ public class LootPools {
 
     public enum OreTier {
 
-        NORMAL,
+        BASIC,
 
-        RARE
+        MID,
+
+        HIGH
 
     }
 
@@ -14,17 +16,35 @@ public class LootPools {
     public static OreTier getTier(String blockName) {
 
 
-        if (blockName.equals("diamond_ore")
+        // HIGH TIER
+        if (
+                blockName.equals("diamond_ore")
                 || blockName.equals("deepslate_diamond_ore")
                 || blockName.equals("emerald_ore")
-                || blockName.equals("deepslate_emerald_ore")) {
+                || blockName.equals("deepslate_emerald_ore")
+        ) {
 
-            return OreTier.RARE;
+            return OreTier.HIGH;
 
         }
 
 
-        return OreTier.NORMAL;
+        // MID TIER
+        if (
+                blockName.equals("gold_ore")
+                || blockName.equals("deepslate_gold_ore")
+                || blockName.equals("redstone_ore")
+                || blockName.equals("deepslate_redstone_ore")
+        ) {
+
+            return OreTier.MID;
+
+        }
+
+
+        // BASIC TIER
+        return OreTier.BASIC;
 
     }
+
 }
