@@ -13,7 +13,7 @@
 
   "entrypoints": {
     "main": [
-      "com.0oAethero0.randomoredrops.RandomOreDrops"
+      "com.Aether.randomoredrops.RandomOreDrops"
     ]
   },
 
