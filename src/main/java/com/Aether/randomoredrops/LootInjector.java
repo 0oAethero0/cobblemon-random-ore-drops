@@ -1,7 +1,7 @@
 package com.Aether.randomoredrops;
 
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 public class LootInjector {
 
@@ -9,9 +9,8 @@ public class LootInjector {
 
         LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
 
-            Identifier id = key.getValue();
+            ResourceLocation id = key.location();
 
-            // Only modify block loot tables
             if (!id.getPath().startsWith("blocks/")) {
                 return;
             }
@@ -19,8 +18,6 @@ public class LootInjector {
             String blockName = id.getPath()
                     .replace("blocks/", "");
 
-
-            // Temporary test: detect ores
             if (blockName.contains("ore")) {
 
                 System.out.println(
