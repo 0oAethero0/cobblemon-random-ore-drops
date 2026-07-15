@@ -5,24 +5,24 @@ import net.minecraft.world.item.Item;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class CobblemonItemPicker {
 
-    private static final List<Item> NORMAL_ITEMS =
+    private static final List<Item> BASIC_ITEMS =
             new ArrayList<>();
 
-    private static final List<Item> RARE_ITEMS =
+    private static final List<Item> MID_ITEMS =
             new ArrayList<>();
 
-    private static final Random RANDOM =
-            new Random();
+    private static final List<Item> HIGH_ITEMS =
+            new ArrayList<>();
 
 
     public static void loadItems() {
 
-        NORMAL_ITEMS.clear();
-        RARE_ITEMS.clear();
+        BASIC_ITEMS.clear();
+        MID_ITEMS.clear();
+        HIGH_ITEMS.clear();
 
 
         BuiltInRegistries.ITEM.forEach(item -> {
@@ -43,68 +43,148 @@ public class CobblemonItemPicker {
             }
 
 
-            NORMAL_ITEMS.add(item);
-
+            /*
+             * HIGH TIER ITEMS
+             * Mega Stones and special rewards
+             */
 
             if (
-                    id.contains("master")
-                    || id.contains("ability")
-                    || id.contains("patch")
-                    || id.contains("capsule")
+                    id.contains("master_ball")
+                    || id.contains("ability_patch")
+                    || id.contains("ability_capsule")
+                    || id.contains("gold_bottle_cap")
+                    || id.contains("bottle_cap")
+                    || id.contains("keystone")
                     || id.contains("legend")
+                    || id.endsWith("ite")
+                    || id.contains("ite_")
             ) {
 
-                RARE_ITEMS.add(item);
+                HIGH_ITEMS.add(item);
 
+                return;
             }
+
+
+
+            /*
+             * MID TIER ITEMS
+             */
+
+            if (
+                    id.contains("ultra")
+                    || id.contains("rare")
+                    || id.contains("evolution")
+                    || id.contains("stone")
+                    || id.contains("tm")
+                    || id.contains("held")
+            ) {
+
+                MID_ITEMS.add(item);
+
+                return;
+            }
+
+
+
+            /*
+             * BASIC ITEMS
+             */
+
+            BASIC_ITEMS.add(item);
+
 
         });
 
 
+
         System.out.println(
-                "Normal Cobblemon items loaded: "
-                + NORMAL_ITEMS.size()
+                "Basic Cobblemon items loaded: "
+                        + BASIC_ITEMS.size()
         );
 
 
         System.out.println(
-                "Rare Cobblemon items loaded: "
-                + RARE_ITEMS.size()
+                "Mid Cobblemon items loaded: "
+                        + MID_ITEMS.size()
+        );
+
+
+        System.out.println(
+                "High Cobblemon items loaded: "
+                        + HIGH_ITEMS.size()
         );
 
     }
 
 
-    public static Item randomNormalItem() {
 
-        if (NORMAL_ITEMS.isEmpty()) {
-            return null;
+    public static List<Item> getBasicItems() {
+
+        return BASIC_ITEMS;
+
+    }
+
+
+
+    public static List<Item> getMidItems() {
+
+        return MID_ITEMS;
+
+    }
+
+
+
+    public static List<Item> getHighItems() {
+
+        return HIGH_ITEMS;
+
+    }
+
+
+
+    public static int getWeight(Item item) {
+
+
+        String id =
+                BuiltInRegistries.ITEM
+                        .getKey(item)
+                        .toString();
+
+
+
+        /*
+         * Jackpot items
+         */
+
+        if (
+                id.endsWith("ite")
+                || id.contains("ite_")
+                || id.contains("ability_patch")
+                || id.contains("master_ball")
+                || id.contains("gold_bottle_cap")
+        ) {
+
+            return 1;
+
         }
 
 
-        return NORMAL_ITEMS.get(
-                RANDOM.nextInt(
-                        NORMAL_ITEMS.size()
-                )
-        );
 
-    }
+        if (
+                id.contains("ability_capsule")
+                || id.contains("bottle_cap")
+                || id.contains("keystone")
+        ) {
 
-
-    public static Item randomRareItem() {
-
-        if (RARE_ITEMS.isEmpty()) {
-
-            return randomNormalItem();
+            return 2;
 
         }
 
 
-        return RARE_ITEMS.get(
-                RANDOM.nextInt(
-                        RARE_ITEMS.size()
-                )
-        );
+
+        return 20;
 
     }
+
 }
