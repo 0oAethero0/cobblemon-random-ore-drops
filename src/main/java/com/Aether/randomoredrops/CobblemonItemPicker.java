@@ -5,7 +5,6 @@ import net.minecraft.world.item.Item;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class CobblemonItemPicker {
 
@@ -20,39 +19,8 @@ public class CobblemonItemPicker {
             new ArrayList<>();
 
 
-    /*
-     * TRUE HIGH TIER REWARDS
-     * Mega Stones will be added here once confirmed.
-     */
-    private static final Set<String> HIGH_ITEM_IDS = Set.of(
-
-            "cobblemon:master_ball",
-
-            "cobblemon:ability_patch",
-            "cobblemon:ability_capsule",
-
-            "cobblemon:bottle_cap",
-            "cobblemon:gold_bottle_cap"
-
-    );
-
-
-    /*
-     * MID TIER REWARDS
-     */
-    private static final Set<String> MID_ITEM_IDS = Set.of(
-
-            "cobblemon:ultra_ball",
-            "cobblemon:great_ball",
-
-            "cobblemon:rare_candy"
-
-    );
-
-
 
     public static void loadItems() {
-
 
         BASIC_ITEMS.clear();
         MID_ITEMS.clear();
@@ -85,16 +53,37 @@ public class CobblemonItemPicker {
 
             /*
              * HIGH TIER
+             *
+             * Diamond/Emerald rewards
              */
 
-            if (HIGH_ITEM_IDS.contains(id)) {
+            if (
 
+                    id.contains("master_ball")
+
+                    || id.contains("ability_patch")
+
+                    || id.contains("ability_capsule")
+
+                    || id.contains("gold_bottle_cap")
+
+                    || id.equals("cobblemon:bottle_cap")
+
+
+                    /*
+                     * Mega Stones
+                     * (Most Cobblemon versions use these names)
+                     */
+
+                    || id.endsWith("ite")
+
+                    || id.contains("ite_")
+
+            ) {
 
                 HIGH_ITEMS.add(item);
 
-System.out.println("HIGH ITEM FOUND: " + id);
-
-return;
+                continue;
 
             }
 
@@ -104,14 +93,31 @@ return;
 
             /*
              * MID TIER
+             *
+             * Gold/Redstone rewards
              */
 
-            if (MID_ITEM_IDS.contains(id)) {
+            if (
 
+                    id.contains("ultra_ball")
+
+                    || id.contains("great_ball")
+
+                    || id.contains("rare_candy")
+
+                    || id.contains("evolution")
+
+                    || id.contains("tm")
+
+                    || id.contains("vitamin")
+
+                    || id.contains("exp")
+
+            ) {
 
                 MID_ITEMS.add(item);
 
-                return;
+                continue;
 
             }
 
@@ -120,7 +126,9 @@ return;
 
 
             /*
-             * EVERYTHING ELSE
+             * BASIC TIER
+             *
+             * Coal/Copper/Iron rewards
              */
 
             BASIC_ITEMS.add(item);
@@ -191,13 +199,19 @@ return;
 
 
         /*
-         * Jackpot rewards
+         * Extremely rare
          */
 
         if (
-                id.equals("cobblemon:master_ball")
-                || id.equals("cobblemon:ability_patch")
-                || id.equals("cobblemon:gold_bottle_cap")
+
+                id.contains("master_ball")
+
+                || id.contains("ability_patch")
+
+                || id.endsWith("ite")
+
+                || id.contains("ite_")
+
         ) {
 
             return 1;
@@ -207,12 +221,17 @@ return;
 
 
         /*
-         * Rare but slightly more common
+         * Rare
          */
 
         if (
-                id.equals("cobblemon:ability_capsule")
-                || id.equals("cobblemon:bottle_cap")
+
+                id.contains("ability_capsule")
+
+                || id.contains("bottle_cap")
+
+                || id.contains("gold_bottle_cap")
+
         ) {
 
             return 3;
