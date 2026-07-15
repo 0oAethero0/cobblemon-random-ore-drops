@@ -44,7 +44,6 @@ public class CobblemonItemPicker {
             }
 
 
-
             if (Config.blacklist.contains(id)) {
                 return;
             }
@@ -53,12 +52,7 @@ public class CobblemonItemPicker {
 
 
 
-            /*
-             * HIGH TIER
-             *
-             * Diamond / Emerald rewards
-             */
-
+            // HIGH TIER
             if (
 
                     id.equals("cobblemon:master_ball")
@@ -87,12 +81,7 @@ public class CobblemonItemPicker {
 
 
 
-            /*
-             * MID TIER
-             *
-             * Gold / Redstone rewards
-             */
-
+            // MID TIER
             if (
 
                     id.contains("great_ball")
@@ -121,18 +110,11 @@ public class CobblemonItemPicker {
 
 
 
-            /*
-             * BASIC TIER
-             *
-             * Coal / Copper / Iron rewards
-             */
-
+            // BASIC TIER
             BASIC_ITEMS.add(item);
 
 
         });
-
-
 
 
 
@@ -178,6 +160,63 @@ public class CobblemonItemPicker {
     public static List<Item> getHighItems() {
 
         return HIGH_ITEMS;
+
+    }
+
+
+
+
+
+    /*
+     * Used by LootInjector weighted selection
+     */
+
+    public static int getWeight(Item item) {
+
+
+        String id =
+                BuiltInRegistries.ITEM
+                        .getKey(item)
+                        .toString();
+
+
+
+        // Jackpot items
+        if (
+
+                id.contains("master_ball")
+
+                || id.contains("ability_patch")
+
+                || id.contains("rare_candy")
+
+        ) {
+
+            return 1;
+
+        }
+
+
+
+        // Very rare items
+        if (
+
+                id.contains("ability_capsule")
+
+                || id.contains("bottle_cap")
+
+                || id.contains("eviolite")
+
+        ) {
+
+            return 3;
+
+        }
+
+
+
+        // Normal high-tier items
+        return 10;
 
     }
 
