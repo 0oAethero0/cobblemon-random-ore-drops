@@ -42,8 +42,18 @@ public class LootInjector {
             );
 
 
-            Item randomItem =
-                    CobblemonItemPicker.randomItem();
+            Item randomItem;
+
+if (tier == LootPools.OreTier.RARE) {
+
+    randomItem =
+            CobblemonItemPicker.randomRareItem();
+
+} else {
+
+    randomItem =
+            CobblemonItemPicker.randomNormalItem();
+
 
 
             if (randomItem == null) {
