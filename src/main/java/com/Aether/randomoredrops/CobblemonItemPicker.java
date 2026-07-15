@@ -22,6 +22,7 @@ public class CobblemonItemPicker {
 
     public static void loadItems() {
 
+
         BASIC_ITEMS.clear();
         MID_ITEMS.clear();
         HIGH_ITEMS.clear();
@@ -54,7 +55,7 @@ public class CobblemonItemPicker {
             /*
              * HIGH TIER
              *
-             * Diamond/Emerald rewards
+             * Diamond / Emerald rewards
              */
 
             if (
@@ -70,20 +71,15 @@ public class CobblemonItemPicker {
                     || id.equals("cobblemon:bottle_cap")
 
 
-                    /*
-                     * Mega Stones
-                     * (Most Cobblemon versions use these names)
-                     */
-
+                    // Mega Stones
                     || id.endsWith("ite")
-
                     || id.contains("ite_")
 
             ) {
 
                 HIGH_ITEMS.add(item);
 
-                continue;
+                return;
 
             }
 
@@ -94,7 +90,7 @@ public class CobblemonItemPicker {
             /*
              * MID TIER
              *
-             * Gold/Redstone rewards
+             * Gold / Redstone rewards
              */
 
             if (
@@ -117,7 +113,7 @@ public class CobblemonItemPicker {
 
                 MID_ITEMS.add(item);
 
-                continue;
+                return;
 
             }
 
@@ -128,7 +124,7 @@ public class CobblemonItemPicker {
             /*
              * BASIC TIER
              *
-             * Coal/Copper/Iron rewards
+             * Coal / Copper / Iron rewards
              */
 
             BASIC_ITEMS.add(item);
@@ -199,7 +195,7 @@ public class CobblemonItemPicker {
 
 
         /*
-         * Extremely rare
+         * Jackpot rewards
          */
 
         if (
@@ -209,7 +205,6 @@ public class CobblemonItemPicker {
                 || id.contains("ability_patch")
 
                 || id.endsWith("ite")
-
                 || id.contains("ite_")
 
         ) {
@@ -220,8 +215,9 @@ public class CobblemonItemPicker {
 
 
 
+
         /*
-         * Rare
+         * Very rare rewards
          */
 
         if (
@@ -237,6 +233,7 @@ public class CobblemonItemPicker {
             return 3;
 
         }
+
 
 
 
