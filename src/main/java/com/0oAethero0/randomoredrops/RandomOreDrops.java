@@ -1,4 +1,4 @@
-package com.0oAethero0.randomoredrops;
+package com.Aether.randomoredrops;
 
 import net.fabricmc.api.ModInitializer;
 
