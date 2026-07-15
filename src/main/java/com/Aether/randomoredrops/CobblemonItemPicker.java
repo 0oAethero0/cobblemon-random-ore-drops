@@ -67,11 +67,13 @@ public class CobblemonItemPicker {
 
                     || id.equals("cobblemon:ability_capsule")
 
-                    || id.equals("cobblemon:bottle_cap")
-
-                    || id.equals("cobblemon:gold_bottle_cap")
-
                     || id.equals("cobblemon:eviolite")
+
+                    || id.equals("cobblemon:everstone")
+
+                    || id.equals("cobblemon:oval_stone")
+
+                    || id.contains("rare_candy")
 
             ) {
 
@@ -93,21 +95,19 @@ public class CobblemonItemPicker {
 
             if (
 
-                    id.contains("ultra_ball")
+                    id.contains("great_ball")
 
-                    || id.contains("great_ball")
-
-                    || id.contains("rare_candy")
-
-                    || id.contains("evolution")
+                    || id.contains("ultra_ball")
 
                     || id.contains("vitamin")
 
-                    || id.contains("exp")
-
                     || id.contains("tm")
 
-                    || id.contains("held")
+                    || id.contains("stone")
+
+                    || id.contains("evolution")
+
+                    || id.contains("exp")
 
             ) {
 
@@ -153,55 +153,6 @@ public class CobblemonItemPicker {
                         + HIGH_ITEMS.size()
         );
 
-
-
-
-        /*
-         * TEMPORARY DEBUG
-         *
-         * Finds possible Mega Stone names
-         */
-
-        BuiltInRegistries.ITEM.forEach(item -> {
-
-
-            String id =
-                    BuiltInRegistries.ITEM
-                            .getKey(item)
-                            .toString();
-
-
-
-            if (
-
-                    id.contains("mega")
-
-                    || id.contains("stone")
-
-                    || id.contains("charizard")
-
-                    || id.contains("lucario")
-
-                    || id.contains("gengar")
-
-                    || id.contains("venusaur")
-
-                    || id.contains("blastoise")
-
-            ) {
-
-                System.out.println(
-                        "POSSIBLE SPECIAL ITEM: "
-                                + id
-                );
-
-            }
-
-
-        });
-
-
-
     }
 
 
@@ -227,52 +178,6 @@ public class CobblemonItemPicker {
     public static List<Item> getHighItems() {
 
         return HIGH_ITEMS;
-
-    }
-
-
-
-
-
-    public static int getWeight(Item item) {
-
-
-        String id =
-                BuiltInRegistries.ITEM
-                        .getKey(item)
-                        .toString();
-
-
-
-        if (
-
-                id.equals("cobblemon:master_ball")
-
-                || id.equals("cobblemon:ability_patch")
-
-        ) {
-
-            return 1;
-
-        }
-
-
-
-        if (
-
-                id.equals("cobblemon:ability_capsule")
-
-                || id.contains("bottle_cap")
-
-        ) {
-
-            return 3;
-
-        }
-
-
-
-        return 20;
 
     }
 
