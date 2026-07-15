@@ -1,7 +1,7 @@
 package com.Aether.randomoredrops;
 
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
 
 public class LootInjector {
 
