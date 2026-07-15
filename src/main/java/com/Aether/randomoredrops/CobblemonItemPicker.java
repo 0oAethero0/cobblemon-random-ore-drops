@@ -92,7 +92,9 @@ public class CobblemonItemPicker {
 
                 HIGH_ITEMS.add(item);
 
-                return;
+System.out.println("HIGH ITEM FOUND: " + id);
+
+return;
 
             }
 
