@@ -70,7 +70,6 @@ public class CobblemonItemPicker {
 
                     || id.equals("cobblemon:bottle_cap")
 
-
                     // Mega Stones
                     || id.endsWith("ite")
                     || id.contains("ite_")
@@ -134,7 +133,6 @@ public class CobblemonItemPicker {
 
 
 
-
         System.out.println(
                 "Basic Cobblemon items loaded: "
                         + BASIC_ITEMS.size()
@@ -151,6 +149,22 @@ public class CobblemonItemPicker {
                 "High Cobblemon items loaded: "
                         + HIGH_ITEMS.size()
         );
+
+
+
+        /*
+         * Debug HIGH tier rewards
+         * Remove later after testing
+         */
+
+        for (Item item : HIGH_ITEMS) {
+
+            System.out.println(
+                    "HIGH REWARD: "
+                            + BuiltInRegistries.ITEM.getKey(item)
+            );
+
+        }
 
     }
 
@@ -195,7 +209,7 @@ public class CobblemonItemPicker {
 
 
         /*
-         * Jackpot rewards
+         * Extremely rare
          */
 
         if (
@@ -217,7 +231,7 @@ public class CobblemonItemPicker {
 
 
         /*
-         * Very rare rewards
+         * Rare
          */
 
         if (
@@ -238,7 +252,7 @@ public class CobblemonItemPicker {
 
 
         /*
-         * Normal rewards
+         * Normal
          */
 
         return 20;
