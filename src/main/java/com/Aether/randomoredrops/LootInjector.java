@@ -36,24 +36,26 @@ public class LootInjector {
 
             System.out.println(
                     "Ore detected: "
-                    + blockName
-                    + " | Tier: "
-                    + tier
+                            + blockName
+                            + " | Tier: "
+                            + tier
             );
 
 
             Item randomItem;
 
-if (tier == LootPools.OreTier.RARE) {
 
-    randomItem =
-            CobblemonItemPicker.randomRareItem();
+            if (tier == LootPools.OreTier.RARE) {
 
-} else {
+                randomItem =
+                        CobblemonItemPicker.randomRareItem();
 
-    randomItem =
-            CobblemonItemPicker.randomNormalItem();
+            } else {
 
+                randomItem =
+                        CobblemonItemPicker.randomNormalItem();
+
+            }
 
 
             if (randomItem == null) {
@@ -75,5 +77,6 @@ if (tier == LootPools.OreTier.RARE) {
             );
 
         });
+
     }
 }
