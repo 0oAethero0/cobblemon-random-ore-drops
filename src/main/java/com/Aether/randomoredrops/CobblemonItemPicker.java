@@ -71,22 +71,7 @@ public class CobblemonItemPicker {
 
                     || id.equals("cobblemon:gold_bottle_cap")
 
-                    /*
-                     * Held items worth finding
-                     */
                     || id.equals("cobblemon:eviolite")
-
-                    /*
-                     * Mega Stones
-                     * Cobblemon uses pokemonnameite naming
-                     * but we exclude random colored items
-                     */
-
-                    || (
-                        id.contains("ite")
-                        && !id.contains("white")
-                        && !id.contains("black")
-                    )
 
             ) {
 
@@ -138,6 +123,8 @@ public class CobblemonItemPicker {
 
             /*
              * BASIC TIER
+             *
+             * Coal / Copper / Iron rewards
              */
 
             BASIC_ITEMS.add(item);
@@ -167,14 +154,53 @@ public class CobblemonItemPicker {
         );
 
 
-        for (Item item : HIGH_ITEMS) {
 
-            System.out.println(
-                    "HIGH REWARD: "
-                            + BuiltInRegistries.ITEM.getKey(item)
-            );
 
-        }
+        /*
+         * TEMPORARY DEBUG
+         *
+         * Finds possible Mega Stone names
+         */
+
+        BuiltInRegistries.ITEM.forEach(item -> {
+
+
+            String id =
+                    BuiltInRegistries.ITEM
+                            .getKey(item)
+                            .toString();
+
+
+
+            if (
+
+                    id.contains("mega")
+
+                    || id.contains("stone")
+
+                    || id.contains("charizard")
+
+                    || id.contains("lucario")
+
+                    || id.contains("gengar")
+
+                    || id.contains("venusaur")
+
+                    || id.contains("blastoise")
+
+            ) {
+
+                System.out.println(
+                        "POSSIBLE SPECIAL ITEM: "
+                                + id
+                );
+
+            }
+
+
+        });
+
+
 
     }
 
@@ -223,8 +249,6 @@ public class CobblemonItemPicker {
                 id.equals("cobblemon:master_ball")
 
                 || id.equals("cobblemon:ability_patch")
-
-                || id.contains("ite")
 
         ) {
 
