@@ -11,8 +11,7 @@ import java.util.Random;
 
 public class LootInjector {
 
-    private static final Random RANDOM =
-            new Random();
+    private static final Random RANDOM = new Random();
 
 
     public static void register() {
@@ -66,44 +65,80 @@ public class LootInjector {
             }
 
 
-            Item randomItem;
+            int amount;
 
 
             if (tier == LootPools.OreTier.RARE) {
 
-                randomItem =
-                        CobblemonItemPicker.randomRareItem();
+                amount =
+                        Config.rareMinDrops
+                                +
+                        RANDOM.nextInt(
+                                Config.rareMaxDrops
+                                -
+                                Config.rareMinDrops
+                                + 1
+                        );
 
             } else {
 
-                randomItem =
-                        CobblemonItemPicker.randomNormalItem();
+                amount =
+                        Config.normalMinDrops
+                                +
+                        RANDOM.nextInt(
+                                Config.normalMaxDrops
+                                -
+                                Config.normalMinDrops
+                                + 1
+                        );
 
             }
 
 
-            if (randomItem == null) {
-                return;
+            for (int i = 0; i < amount; i++) {
+
+
+                Item randomItem;
+
+
+                if (tier == LootPools.OreTier.RARE) {
+
+                    randomItem =
+                            CobblemonItemPicker.randomRareItem();
+
+                } else {
+
+                    randomItem =
+                            CobblemonItemPicker.randomNormalItem();
+
+                }
+
+
+                if (randomItem == null) {
+                    continue;
+                }
+
+
+                tableBuilder.pool(
+
+                        net.minecraft.world.level.storage.loot.LootPool.lootPool()
+
+                                .add(
+                                        LootItem.lootTableItem(randomItem)
+                                )
+
+                                .apply(
+                                        SetItemCountFunction.setCount(
+                                                ConstantValue.exactly(1)
+                                        )
+                                )
+
+                                .build()
+
+                );
+
             }
 
-
-            tableBuilder.pool(
-
-                    net.minecraft.world.level.storage.loot.LootPool.lootPool()
-
-                            .add(
-                                    LootItem.lootTableItem(randomItem)
-                            )
-
-                            .apply(
-                                    SetItemCountFunction.setCount(
-                                            ConstantValue.exactly(1)
-                                    )
-                            )
-
-                            .build()
-
-            );
 
         });
 
