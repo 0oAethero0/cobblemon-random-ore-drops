@@ -27,17 +27,29 @@ public class CobblemonItemPicker {
 
         BuiltInRegistries.ITEM.forEach(item -> {
 
-            String id = BuiltInRegistries.ITEM
-                    .getKey(item)
-                    .toString();
+            String id =
+                    BuiltInRegistries.ITEM
+                            .getKey(item)
+                            .toString();
 
 
-            if (id.startsWith("cobblemon:")) {
+            if (!id.startsWith("cobblemon:")) {
+                return;
+            }
 
-                NORMAL_ITEMS.add(item);
 
-                // placeholder rare pool
-                // will be customized later
+            NORMAL_ITEMS.add(item);
+
+
+            // Rare pool filter
+            if (
+                    id.contains("master")
+                    || id.contains("ability")
+                    || id.contains("patch")
+                    || id.contains("capsule")
+                    || id.contains("legend")
+            ) {
+
                 RARE_ITEMS.add(item);
 
             }
@@ -46,8 +58,14 @@ public class CobblemonItemPicker {
 
 
         System.out.println(
-                "Loaded Cobblemon items: "
+                "Normal Cobblemon items: "
                 + NORMAL_ITEMS.size()
+        );
+
+
+        System.out.println(
+                "Rare Cobblemon items: "
+                + RARE_ITEMS.size()
         );
 
     }
@@ -59,8 +77,11 @@ public class CobblemonItemPicker {
             return null;
         }
 
+
         return NORMAL_ITEMS.get(
-                RANDOM.nextInt(NORMAL_ITEMS.size())
+                RANDOM.nextInt(
+                        NORMAL_ITEMS.size()
+                )
         );
 
     }
@@ -69,11 +90,16 @@ public class CobblemonItemPicker {
     public static Item randomRareItem() {
 
         if (RARE_ITEMS.isEmpty()) {
-            return null;
+
+            return randomNormalItem();
+
         }
 
+
         return RARE_ITEMS.get(
-                RANDOM.nextInt(RARE_ITEMS.size())
+                RANDOM.nextInt(
+                        RARE_ITEMS.size()
+                )
         );
 
     }
