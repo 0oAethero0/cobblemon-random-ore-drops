@@ -8,15 +8,16 @@ public class RandomOreDrops implements ModInitializer {
             "cobblemon_random_ore_drops";
 
     @Override
-    public void onInitialize() {
+public void onInitialize() {
 
-        CobblemonItemPicker.loadItems();
+    JsonConfig.load();
 
-        LootInjector.register();
+    CobblemonItemPicker.loadItems();
 
-        System.out.println(
-                "Cobblemon Random Ore Drops loaded!"
-        );
+    LootInjector.register();
 
-    }
+    System.out.println(
+            "Cobblemon Random Ore Drops loaded!"
+    );
+}
 }
