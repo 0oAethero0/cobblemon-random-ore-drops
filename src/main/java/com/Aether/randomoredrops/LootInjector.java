@@ -3,144 +3,161 @@ package com.Aether.randomoredrops;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
-import java.util.Random;
+import java.util.List;
+
 
 public class LootInjector {
-
-    private static final Random RANDOM = new Random();
 
 
     public static void register() {
 
-        LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
+
+        LootTableEvents.MODIFY.register(
+                (key, tableBuilder, source, registries) -> {
 
 
-            if (!Config.enabled) {
-                return;
-            }
+                    if (!Config.enabled) {
+                        return;
+                    }
 
 
-            ResourceLocation id = key.location();
+                    ResourceLocation id =
+                            key.location();
 
 
-            if (!id.getPath().startsWith("blocks/")) {
-                return;
-            }
+                    if (!id.getPath().startsWith("blocks/")) {
+                        return;
+                    }
 
 
-            String blockName =
-                    id.getPath()
-                            .replace("blocks/", "");
+                    String blockName =
+                            id.getPath()
+                                    .replace("blocks/", "");
 
 
-            if (!blockName.contains("ore")) {
-                return;
-            }
+
+                    if (!blockName.contains("ore")) {
+                        return;
+                    }
 
 
-            LootPools.OreTier tier =
-                    LootPools.getTier(blockName);
+
+                    LootPools.OreTier tier =
+                            LootPools.getTier(blockName);
 
 
-            double chance;
+
+                    List<Item> items;
 
 
-            if (tier == LootPools.OreTier.RARE) {
+                    int minDrops;
 
-                chance = Config.rareOreChance;
-
-            } else {
-
-                chance = Config.normalOreChance;
-
-            }
+                    int maxDrops;
 
 
-            if (RANDOM.nextDouble() > chance) {
-                return;
-            }
+
+                    switch (tier) {
 
 
-            int amount;
+                        case HIGH -> {
+
+                            items =
+                                    CobblemonItemPicker.getHighItems();
+
+                            minDrops =
+                                    Config.rareMinDrops;
+
+                            maxDrops =
+                                    Config.rareMaxDrops;
+
+                        }
 
 
-            if (tier == LootPools.OreTier.RARE) {
 
-                amount =
-                        Config.rareMinDrops
-                                +
-                        RANDOM.nextInt(
-                                Config.rareMaxDrops
-                                -
-                                Config.rareMinDrops
-                                + 1
-                        );
+                        case MID -> {
 
-            } else {
+                            items =
+                                    CobblemonItemPicker.getMidItems();
 
-                amount =
-                        Config.normalMinDrops
-                                +
-                        RANDOM.nextInt(
-                                Config.normalMaxDrops
-                                -
-                                Config.normalMinDrops
-                                + 1
-                        );
+                            minDrops =
+                                    Config.normalMinDrops;
 
-            }
+                            maxDrops =
+                                    Config.normalMaxDrops;
+
+                        }
 
 
-            for (int i = 0; i < amount; i++) {
+
+                        default -> {
+
+                            items =
+                                    CobblemonItemPicker.getBasicItems();
+
+                            minDrops =
+                                    Config.normalMinDrops;
+
+                            maxDrops =
+                                    Config.normalMaxDrops;
+
+                        }
+
+                    }
 
 
-                Item randomItem;
+
+                    if (items.isEmpty()) {
+                        return;
+                    }
 
 
-                if (tier == LootPools.OreTier.RARE) {
-
-                    randomItem =
-                            CobblemonItemPicker.randomRareItem();
-
-                } else {
-
-                    randomItem =
-                            CobblemonItemPicker.randomNormalItem();
-
-                }
 
 
-                if (randomItem == null) {
-                    continue;
-                }
+                    LootPool.Builder pool =
+                            LootPool.lootPool();
 
 
-                tableBuilder.pool(
 
-                        net.minecraft.world.level.storage.loot.LootPool.lootPool()
+                    for (Item item : items) {
 
-                                .add(
-                                        LootItem.lootTableItem(randomItem)
-                                )
 
-                                .apply(
-                                        SetItemCountFunction.setCount(
-                                                ConstantValue.exactly(1)
+                        pool.add(
+
+                                LootItem.lootTableItem(item)
+                                        .setWeight(
+                                                CobblemonItemPicker.getWeight(item)
                                         )
-                                )
 
-                                .build()
+                        );
 
-                );
-
-            }
+                    }
 
 
-        });
+
+
+                    pool.setRolls(
+
+                            UniformGenerator.between(
+                                    minDrops,
+                                    maxDrops
+                            )
+
+                    );
+
+
+
+                    tableBuilder.pool(
+                            pool.build()
+                    );
+
+
+                }
+        );
 
     }
+
 }
