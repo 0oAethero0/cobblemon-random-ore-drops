@@ -5,8 +5,10 @@ import net.minecraft.world.item.Item;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class CobblemonItemPicker {
+
 
     private static final List<Item> BASIC_ITEMS =
             new ArrayList<>();
@@ -18,14 +20,48 @@ public class CobblemonItemPicker {
             new ArrayList<>();
 
 
+    /*
+     * TRUE HIGH TIER REWARDS
+     * Mega Stones will be added here once confirmed.
+     */
+    private static final Set<String> HIGH_ITEM_IDS = Set.of(
+
+            "cobblemon:master_ball",
+
+            "cobblemon:ability_patch",
+            "cobblemon:ability_capsule",
+
+            "cobblemon:bottle_cap",
+            "cobblemon:gold_bottle_cap"
+
+    );
+
+
+    /*
+     * MID TIER REWARDS
+     */
+    private static final Set<String> MID_ITEM_IDS = Set.of(
+
+            "cobblemon:ultra_ball",
+            "cobblemon:great_ball",
+
+            "cobblemon:rare_candy"
+
+    );
+
+
+
     public static void loadItems() {
+
 
         BASIC_ITEMS.clear();
         MID_ITEMS.clear();
         HIGH_ITEMS.clear();
 
 
+
         BuiltInRegistries.ITEM.forEach(item -> {
+
 
             String id =
                     BuiltInRegistries.ITEM
@@ -33,9 +69,11 @@ public class CobblemonItemPicker {
                             .toString();
 
 
+
             if (!id.startsWith("cobblemon:")) {
                 return;
             }
+
 
 
             if (Config.blacklist.contains(id)) {
@@ -43,58 +81,51 @@ public class CobblemonItemPicker {
             }
 
 
+
+
             /*
-             * HIGH TIER ITEMS
-             * Mega Stones and special rewards
+             * HIGH TIER
              */
 
-            if (
-                    id.contains("master_ball")
-                    || id.contains("ability_patch")
-                    || id.contains("ability_capsule")
-                    || id.contains("gold_bottle_cap")
-                    || id.contains("bottle_cap")
-                    || id.contains("keystone")
-                    || id.contains("legend")
-                    || id.endsWith("ite")
-                    || id.contains("ite_")
-            ) {
+            if (HIGH_ITEM_IDS.contains(id)) {
+
 
                 HIGH_ITEMS.add(item);
 
                 return;
+
             }
 
 
 
+
+
             /*
-             * MID TIER ITEMS
+             * MID TIER
              */
 
-            if (
-                    id.contains("ultra")
-                    || id.contains("rare")
-                    || id.contains("evolution")
-                    || id.contains("stone")
-                    || id.contains("tm")
-                    || id.contains("held")
-            ) {
+            if (MID_ITEM_IDS.contains(id)) {
+
 
                 MID_ITEMS.add(item);
 
                 return;
+
             }
 
 
 
+
+
             /*
-             * BASIC ITEMS
+             * EVERYTHING ELSE
              */
 
             BASIC_ITEMS.add(item);
 
 
         });
+
 
 
 
@@ -116,6 +147,8 @@ public class CobblemonItemPicker {
         );
 
     }
+
+
 
 
 
@@ -143,6 +176,8 @@ public class CobblemonItemPicker {
 
 
 
+
+
     public static int getWeight(Item item) {
 
 
@@ -154,15 +189,13 @@ public class CobblemonItemPicker {
 
 
         /*
-         * Jackpot items
+         * Jackpot rewards
          */
 
         if (
-                id.endsWith("ite")
-                || id.contains("ite_")
-                || id.contains("ability_patch")
-                || id.contains("master_ball")
-                || id.contains("gold_bottle_cap")
+                id.equals("cobblemon:master_ball")
+                || id.equals("cobblemon:ability_patch")
+                || id.equals("cobblemon:gold_bottle_cap")
         ) {
 
             return 1;
@@ -171,17 +204,24 @@ public class CobblemonItemPicker {
 
 
 
+        /*
+         * Rare but slightly more common
+         */
+
         if (
-                id.contains("ability_capsule")
-                || id.contains("bottle_cap")
-                || id.contains("keystone")
+                id.equals("cobblemon:ability_capsule")
+                || id.equals("cobblemon:bottle_cap")
         ) {
 
-            return 2;
+            return 3;
 
         }
 
 
+
+        /*
+         * Normal rewards
+         */
 
         return 20;
 
