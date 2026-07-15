@@ -52,6 +52,7 @@ public class CobblemonItemPicker {
 
 
 
+
             /*
              * HIGH TIER
              *
@@ -60,19 +61,32 @@ public class CobblemonItemPicker {
 
             if (
 
-                    id.contains("master_ball")
+                    id.equals("cobblemon:master_ball")
 
-                    || id.contains("ability_patch")
+                    || id.equals("cobblemon:ability_patch")
 
-                    || id.contains("ability_capsule")
-
-                    || id.contains("gold_bottle_cap")
+                    || id.equals("cobblemon:ability_capsule")
 
                     || id.equals("cobblemon:bottle_cap")
 
-                    // Mega Stones
-                    || id.endsWith("ite")
-                    || id.contains("ite_")
+                    || id.equals("cobblemon:gold_bottle_cap")
+
+                    /*
+                     * Held items worth finding
+                     */
+                    || id.equals("cobblemon:eviolite")
+
+                    /*
+                     * Mega Stones
+                     * Cobblemon uses pokemonnameite naming
+                     * but we exclude random colored items
+                     */
+
+                    || (
+                        id.contains("ite")
+                        && !id.contains("white")
+                        && !id.contains("black")
+                    )
 
             ) {
 
@@ -102,11 +116,13 @@ public class CobblemonItemPicker {
 
                     || id.contains("evolution")
 
-                    || id.contains("tm")
-
                     || id.contains("vitamin")
 
                     || id.contains("exp")
+
+                    || id.contains("tm")
+
+                    || id.contains("held")
 
             ) {
 
@@ -122,14 +138,14 @@ public class CobblemonItemPicker {
 
             /*
              * BASIC TIER
-             *
-             * Coal / Copper / Iron rewards
              */
 
             BASIC_ITEMS.add(item);
 
 
         });
+
+
 
 
 
@@ -150,12 +166,6 @@ public class CobblemonItemPicker {
                         + HIGH_ITEMS.size()
         );
 
-
-
-        /*
-         * Debug HIGH tier rewards
-         * Remove later after testing
-         */
 
         for (Item item : HIGH_ITEMS) {
 
@@ -208,18 +218,13 @@ public class CobblemonItemPicker {
 
 
 
-        /*
-         * Extremely rare
-         */
-
         if (
 
-                id.contains("master_ball")
+                id.equals("cobblemon:master_ball")
 
-                || id.contains("ability_patch")
+                || id.equals("cobblemon:ability_patch")
 
-                || id.endsWith("ite")
-                || id.contains("ite_")
+                || id.contains("ite")
 
         ) {
 
@@ -229,18 +234,11 @@ public class CobblemonItemPicker {
 
 
 
-
-        /*
-         * Rare
-         */
-
         if (
 
-                id.contains("ability_capsule")
+                id.equals("cobblemon:ability_capsule")
 
                 || id.contains("bottle_cap")
-
-                || id.contains("gold_bottle_cap")
 
         ) {
 
@@ -249,11 +247,6 @@ public class CobblemonItemPicker {
         }
 
 
-
-
-        /*
-         * Normal
-         */
 
         return 20;
 
